@@ -7,8 +7,7 @@ import day4.worker.TestEngineer;
 import java.util.function.Function;
 
 public abstract class Test implements Function<Engineer, Result> {
-    private int complexity;
-    private int instability;
+    private int complexity, instability;
 
     public int getComplexity() {
         return complexity;
@@ -23,11 +22,18 @@ public abstract class Test implements Function<Engineer, Result> {
     }
 
     public void setInstability(int instability) {
-        this.instability = instability;
+        if (instability <= 0) {
+            this.instability = 1;
+        } else if (instability > 10) {
+            this.instability = 10;
+        } else {
+            this.instability = instability;
+        }
     }
 
-    public Test(TestLevel testLevel) {
+    public Test(TestLevel testLevel, int instability) {
         this.complexity = testLevel.COMPLEXITY;
+        this.setInstability(instability);
     }
 
     @Override
@@ -39,7 +45,8 @@ public abstract class Test implements Function<Engineer, Result> {
         } else {
             anxiety = 1;
         }
-        if (complexity * instability * anxiety > 30) {
+        System.out.println(String.format("Internal complexity is: %s", complexity * instability * anxiety / engineer.getSkill()));
+        if (complexity * instability * anxiety / engineer.getSkill() > 30) {
             return Result.FAILED;
         } else {
             return Result.PASSED;
