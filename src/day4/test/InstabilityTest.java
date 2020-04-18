@@ -24,18 +24,10 @@ public class InstabilityTest {
     @Parameterized.Parameters
     public static Collection<Object[]> primeNumbers() {
         return Arrays.asList(new Object[][]{
-                {new ManualTest(TestLevel.GUI, 0), 1},
-                {new ManualTest(TestLevel.UNIT, 11), 10},
-                {new AutomatedTest(TestLevel.UNIT, 10), 10},
-                {new AutomatedTest(TestLevel.API, 11), 10},
-                {new ManualTest(TestLevel.API, 10), 10},
-                {new AutomatedTest(TestLevel.API, 0), 1},
-                {new AutomatedTest(TestLevel.UNIT, 0), 1},
-                {new AutomatedTest(TestLevel.GUI, 1), 1},
+                {new ManualTest(TestLevel.UNIT, 0), 1},
                 {new ManualTest(TestLevel.API, 1), 1},
-                {new ManualTest(TestLevel.GUI, 11), 10},
-                {new AutomatedTest(TestLevel.GUI, 10), 10},
-                {new ManualTest(TestLevel.UNIT, 11), 10},
+                {new AutomatedTest(TestLevel.API, 10), 10},
+                {new AutomatedTest(TestLevel.GUI, 11), 10},
         });
     }
 
