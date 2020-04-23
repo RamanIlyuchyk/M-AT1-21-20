@@ -1,4 +1,4 @@
-package day4.test;
+package day4.test.tests;
 
 import day4.entity.AutomatedTest;
 import day4.entity.ManualTest;
