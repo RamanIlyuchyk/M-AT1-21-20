@@ -1,17 +1,20 @@
-package day4.test;
+package day4.test.tests;
 
 import day4.worker.AutomationEngineer;
 import day4.worker.Engineer;
 import day4.worker.TestEngineer;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BaseEngineerTest {
     private final Engineer engineer;
 
