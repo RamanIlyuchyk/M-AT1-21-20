@@ -6,3 +6,4 @@
 /temp
 /out
 target/
+**/db.properties
