@@ -3,3 +3,4 @@ out
 target/
 **/db.properties
 *.iml
+*.xml
