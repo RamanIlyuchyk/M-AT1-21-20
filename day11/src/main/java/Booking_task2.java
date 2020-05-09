@@ -9,6 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Booking_task2 {
     public static void main(String[] args) throws InterruptedException {
@@ -19,7 +20,7 @@ public class Booking_task2 {
         driver.get("https://www.booking.com/");
 
         WebElement direction = driver.findElement(By.id("ss"));
-        direction.sendKeys("Москва");
+        direction.sendKeys("Moscow");
 
         WebElement period = driver.findElement(By.xpath("//*[@data-mode='checkin']"));
         period.click();
@@ -38,7 +39,7 @@ public class Booking_task2 {
 
         WebElement search = driver.findElement(By.xpath("//*[@class='sb-searchbox__button ']"));
         search.click();
-        Thread.sleep(5000);
+        TimeUnit.SECONDS.sleep(5);
 
         Actions builder = new Actions(driver);
 
@@ -50,16 +51,16 @@ public class Booking_task2 {
 
         WebElement newSearch = driver.findElement(By.xpath("//*[@class='sb-searchbox__button ']"));
         newSearch.click();
-        Thread.sleep(5000);
+        TimeUnit.SECONDS.sleep(5);
 
         WebElement budget = driver.findElement(By.xpath("//*[@data-id='pri-1']"));
         budget.click();
         String budgetUpTo = budget.getText().substring(budget.getText().indexOf("-")).replaceAll("[^0-9]+", "");
         System.out.println("Budget per night up to " + budgetUpTo);
         int budgetPerNight = Integer.parseInt(budgetUpTo);
-        Thread.sleep(5000);
+        TimeUnit.SECONDS.sleep(5);
 
-        WebElement firstOnTheList = driver.findElement(By.xpath("//*[@data-hotelid][1]//div[contains(@class,'bui-price-display__value prco-inline-block-maker-helper')]"));
+        WebElement firstOnTheList = driver.findElement(By.xpath("(//*[contains(@class,'bui-price-display')]/div[2]/div)[1]"));
         String priceOfFirstOnTheList = firstOnTheList.getText().replaceAll("[^0-9]+", "");
         int hotelPerNight = Integer.parseInt(priceOfFirstOnTheList) / 5;
         System.out.println("Price per night of first on the list from " + hotelPerNight);
