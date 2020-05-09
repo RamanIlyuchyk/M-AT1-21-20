@@ -9,6 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Booking_task3 {
     public static WebDriver driver;
@@ -21,7 +22,7 @@ public class Booking_task3 {
         driver.get("https://www.booking.com/");
 
         WebElement direction = driver.findElement(By.id("ss"));
-        direction.sendKeys("Осло");
+        direction.sendKeys("Oslo");
 
         WebElement period = driver.findElement(By.xpath("//*[@data-mode='checkin']"));
         period.click();
@@ -46,47 +47,33 @@ public class Booking_task3 {
 
         WebElement search = driver.findElement(By.xpath("//*[@class='sb-searchbox__button ']"));
         search.click();
-        Thread.sleep(5000);
+        TimeUnit.SECONDS.sleep(5);
 
         WebElement threeStarHotels = driver.findElement(By.xpath("//*[@data-id='class-3']"));
         threeStarHotels.click();
-        Thread.sleep(5000);
+        TimeUnit.SECONDS.sleep(5);
 
         WebElement fourStarHotels = driver.findElement(By.xpath("//*[@data-id='class-4']"));
         fourStarHotels.click();
-        Thread.sleep(5000);
+        TimeUnit.SECONDS.sleep(5);
 
-        Actions builder = new Actions(driver);
+        String tenthHotelPath = "//*[@data-hotelid][10]";
+        WebElement tenthHotel = driver.findElement(By.xpath(tenthHotelPath));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", tenthHotel);
+        TimeUnit.SECONDS.sleep(3); //just to have time to see this action
 
-        WebElement tenthHotel = driver.findElement(By.xpath("//*[@data-hotelid][10]"));
-        builder.moveToElement(tenthHotel).perform();
-        Thread.sleep(3000);
+        String nameOfTenthHotelPath = tenthHotelPath + "//span[contains(@class,'sr-hotel__name')]";
+        WebElement nameOfTenthHotel = driver.findElement(By.xpath(nameOfTenthHotelPath));
+        new Actions(driver).moveToElement(nameOfTenthHotel).perform();
+        TimeUnit.SECONDS.sleep(3); //just to have time to see this action
 
-        WebElement nameOfTenthHotel = driver.findElement(By.xpath("//*[@data-hotelid][10]//span[contains(@class,'sr-hotel__name')]"));
-        builder.moveToElement(nameOfTenthHotel).perform();
-        Thread.sleep(3000);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].style.backgroundColor='green'", tenthHotel);
+        TimeUnit.SECONDS.sleep(3); //just to have time to see this action
 
-        WebElement highLightTenthHotel = driver.findElement(By.xpath("//*[@data-hotelid][10]"));
-        builder.moveToElement(highLightTenthHotel).perform();
-        highLightElementInGreen(highLightTenthHotel);
-        Thread.sleep(3000);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].style.color='red'", nameOfTenthHotel);
+        TimeUnit.SECONDS.sleep(3); //just to have time to see this action
 
-        WebElement highLightNameOfTenthHotel = driver.findElement(By.xpath("//*[@data-hotelid][10]//span[contains(@class,'sr-hotel__name')]"));
-        builder.moveToElement(highLightNameOfTenthHotel).perform();
-        highLightTextInRed(highLightNameOfTenthHotel);
-        Thread.sleep(3000);
-
-        Assert.assertEquals("Something wrong", "color: red;", highLightNameOfTenthHotel.getAttribute("style"));
+        Assert.assertEquals("Something wrong", "color: red;", nameOfTenthHotel.getAttribute("style"));
         driver.quit();
-    }
-
-    public static void highLightElementInGreen(WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].setAttribute('style','background: green;');", element);
-    }
-
-    public static void highLightTextInRed(WebElement text) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].setAttribute('style','color: red;');", text);
     }
 }
