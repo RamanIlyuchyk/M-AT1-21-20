@@ -31,7 +31,7 @@ public class Weather {
         String weatherForTomorrow = driver.findElement(By.xpath(String.format(info, day, time, scale))).getAttribute("aria-label");
         String MSG = "Tomorrow's forecast at %s is %s%s";
         System.out.print(String.format(MSG, time, weatherForTomorrow.substring(0, weatherForTomorrow.indexOf("C")), scale.substring(0, 1)));
-        //driver.close();
-        //driver.quit();
+        driver.close();
+        driver.quit();
     }
 }
